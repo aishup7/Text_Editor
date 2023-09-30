@@ -3,7 +3,7 @@ import os
 from tkinter import *
 from tkinter import filedialog, colorchooser, font
 from tkinter.messagebox import *
-from tkinter.filedialog import *
+from tkinter import filedialog,simpledialog
 
 
 def change_color():
@@ -21,10 +21,9 @@ def new_file():
 
 
 def open_file():
-    file = askopenfilename(defaultextension=".txt",
+    file = filedialog.askopenfilename(defaultextension=".txt",
                            file=[("All Files", "*.*"),
                                  ("Text Documents", "*.txt")])
-
     if file is None:
         return
 
@@ -39,10 +38,11 @@ def open_file():
 
         except Exception:
             print("File could not be read")
-
         finally:
             file.close()
 
+def handle_click(event):
+    text_area.tag_config('Found',background='white',foreground='grey')
 
 def save_file():
     file = filedialog.asksaveasfilename(initialfile='unititled.txt',
@@ -82,7 +82,20 @@ def paste():
 def about():
     showinfo("ABOUT", "This is a program written by Aishwarya R P")
 
-
+def find_pattern():
+        text_area.tag_remove("Found", '1.0', END)
+        find = simpledialog.askstring("Find....", "Enter text:")
+        if find:
+            idx = '1.0'
+        while 1:
+            idx = text_area.search(find, idx, nocase=1, stopindex=END)
+            if not idx:
+                break
+            lastidx = '%s+%dc' % (idx, len(find))
+            text_area.tag_add('Found', idx, lastidx)
+            idx = lastidx
+        text_area.tag_config('Found', foreground='white', background='black')
+        text_area.bind("<3>", handle_click)
 def quit():
     window.destroy()
 
@@ -91,8 +104,8 @@ window = Tk()
 window.title("Text Editor")
 file = None
 
-window_width = 500
-window_height = 500
+window_width = 700
+window_height = 700
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
 
@@ -148,5 +161,8 @@ edit_menu.add_command(label="PASTE", command=paste)
 help_menu = Menu(menu_bar, tearoff=0)
 menu_bar.add_cascade(label="HELP", menu=help_menu)
 help_menu.add_command(label="ABOUT", command=about)
+
+findM =Menu(menu_bar, tearoff=0)
+menu_bar.add_command(label='FIND',command = find_pattern)
 
 window.mainloop()
