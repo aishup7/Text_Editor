@@ -8,12 +8,12 @@ To build this text editor in python, we will need the following libraries:
 3. OS – To get the path of the file.
 
 # CONCEPTS USED :
-Tkinter
-mainloop()
-grid()
-Button
-Canvas
-Entry
-File Dialog
-Simple Dialog
+1. Tkinter
+2. mainloop()
+3. grid()
+4. Button
+5. Canvas
+6. Entry
+7. File Dialog
+8. Simple Dialog
 
