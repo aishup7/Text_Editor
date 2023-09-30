@@ -7,4 +7,13 @@ To build this text editor in python, we will need the following libraries:
 1. Tkinter – To create the GUI.
 3. OS – To get the path of the file.
 
-   
+# CONCEPTS USED :
+Tkinter
+mainloop()
+grid()
+Button
+Canvas
+Entry
+File Dialog
+Simple Dialog
+
